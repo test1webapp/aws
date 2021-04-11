@@ -1,6 +1,6 @@
 pipeline{
 def functionName = 'test'
-agent any{
+agent none
      stage('Test'){
        echo "Hi build has tested"
      }
@@ -17,5 +17,4 @@ agent any{
                 --s3-key aa.zip \
                 --region us-east-1"
     }
-}
 }
