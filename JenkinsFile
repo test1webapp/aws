@@ -1,3 +1,4 @@
+pipeline{
 def functionName = 'test'
 agent any{
      stage('Test'){
@@ -16,4 +17,5 @@ agent any{
                 --s3-key aa.zip \
                 --region us-east-1"
     }
+}
 }
