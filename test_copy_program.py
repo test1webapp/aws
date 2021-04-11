@@ -4,7 +4,7 @@ import os, json, boto3
 globalVars  = {}
 globalVars['Owner']                 = "AV"
 globalVars['REGION_NAME']           = "us-east-1"
-globalVars['tagName']               = "AV"
+globalVars['tagName']               = "security"
 
 globalVars['security_group_id']     = os.environ['security_group_id']
 
