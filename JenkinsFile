@@ -1,6 +1,9 @@
 pipeline{
-agent none
+agent any
 stages{
+stage('Checkout'){
+steps{
+}
 stage('Test'){
     steps {
     echo "Hi build has tested"
