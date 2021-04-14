@@ -1,5 +1,6 @@
 pipeline{
-agent none
+node('slaves')
+{}
 stages{
 stage('Test'){
     steps {
