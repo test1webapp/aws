@@ -1,5 +1,6 @@
 pipeline{
 agent none
+stages{
 stage('Test'){
     steps {
     echo "Hi build has tested"
@@ -23,5 +24,6 @@ stage('Deploy'){
                 --s3-key aa.zip \
                 --region us-east-1"
            }
+    }
     }
 }
