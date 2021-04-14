@@ -1,21 +1,19 @@
 pipeline{
 agent none
-stages{
-     stage('Test'){
-       echo "Hi build has tested"
-     }
-     stage('Build'){
-         sh 'python -m py_compile test_copy_program.py '
-         sh "zip aa.zip test_copy_program"
+stage('Test'){
+    echo "Hi build has tested"
+}
+stage('Build'){
+     sh 'python -m py_compile test_copy_program.py '
+     sh "zip aa.zip test_copy_program"
       }
-    stage('Push'){
-        sh "aws s3 cp aa.zip s3://testjenkins2021"
-     }
-    stage('Deploy'){
-         sh "aws lambda update-function-code --function-name test \
+stage('Push'){
+    sh "aws s3 cp aa.zip s3://testjenkins2021"
+}
+stage('Deploy'){
+    sh "aws lambda update-function-code --function-name test \
                 --s3-bucket testjenkins2021 \
                 --s3-key aa.zip \
                 --region us-east-1"
     }
-}
 }
