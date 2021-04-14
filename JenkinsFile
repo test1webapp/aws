@@ -1,32 +1,26 @@
-pipeline{
-agent any
-stages{
-stage('Checkout'){
-steps{
-}
-stage('Test'){
-    steps {
-    echo "Hi build has tested"
-    }
-}
-stage('Build'){
-    steps {
-     sh 'python -m py_compile test_copy_program.py '
-     sh "zip aa.zip test_copy_program"
-      }
-      }
-stage('Push'){
-    steps {
-    sh "aws s3 cp aa.zip s3://testjenkins2021"
-    }
-}
-stage('Deploy'){
-    steps {
-    sh "aws lambda update-function-code --function-name test \
-                --s3-bucket testjenkins2021 \
-                --s3-key aa.zip \
-                --region us-east-1"
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/test1webapp/aws.git']]])
+            }
+        }
+        stage('Build') {
+            steps {
+                git branch: 'main', url: 'https://github.com/test1webapp/aws.git'
+                sh "zip test_sg.zip test_copy_program.py."
+            }
+        }
+        stage('Push'){
+            steps{
+                sh "/usr/local/bin/aws s3 cp test_sg.zip s3://testjenkins2021"
+                }
+            }
+       stage('Deploy'){
+           steps{
+               sh "/usr/local/bin/aws lambda create-function --function-name test_sg --runtime python2.7 --code S3Bucket=testjenkins2021,S3Key=test.zip --handler test.lambda_handler --role arn:aws:iam::850752531886:role/lambda_fullaccess --region us-east-1"
            }
-    }
+       }
     }
 }
