@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 git branch: 'main', url: 'https://github.com/test1webapp/aws.git'
-                sh "zip test_sg.zip test_copy_program.py."
+                sh "zip test_sg.zip test_copy_program.py"
             }
         }
         stage('Push'){
