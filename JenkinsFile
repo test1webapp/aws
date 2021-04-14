@@ -19,7 +19,7 @@ pipeline {
             }
        stage('Deploy'){
            steps{
-               sh "/usr/local/bin/aws lambda create-function --function-name test_sg --runtime python2.7 --code S3Bucket=testjenkins2021,S3Key=test_sg.zip --handler test.lambda_handler --role arn:aws:iam::850752531886:role/lambda_fullaccess --region us-east-1"
+               sh "/usr/local/bin/aws lambda create-function --function-name testsg --runtime python2.7 --code S3Bucket=testjenkins2021,S3Key=test_sg.zip --handler testsg.lambda_handler --role arn:aws:iam::850752531886:role/lambda_fullaccess --region us-east-1"
            }
        }
     }
