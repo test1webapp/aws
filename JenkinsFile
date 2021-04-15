@@ -9,17 +9,17 @@ pipeline {
         stage('Build') {
             steps {
                 git branch: 'main', url: 'https://github.com/test1webapp/aws.git'
-                sh "zip test_sg.zip test_copy_program.py"
+                sh "zip test.zip test_copy_program.py"
             }
         }
         stage('Push'){
             steps{
-                sh "/usr/local/bin/aws s3 cp test_sg.zip s3://testjenkins2021"
+                sh "/usr/local/bin/aws s3 cp test.zip s3://testjenkins2021"
                 }
             }
        stage('Deploy'){
            steps{
-               sh "/usr/local/bin/aws lambda create-function --function-name testsg --runtime python2.7 --code S3Bucket=testjenkins2021,S3Key=test_sg.zip --handler testsg.lambda_handler --role arn:aws:iam::850752531886:role/lambda_fullaccess --region us-east-1"
+               sh "/usr/local/bin/aws lambda create-function --function-name testsg --runtime python2.7 --code S3Bucket=testjenkins2021,S3Key=test.zip --handler test.lambda_handler --role arn:aws:iam::850752531886:role/lambda_fullaccess --region us-east-1"
            }
        }
     }
