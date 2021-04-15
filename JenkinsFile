@@ -20,7 +20,7 @@ pipeline {
        stage('Deploy'){
            steps{
                sh "/usr/local/bin/aws lambda create-function --function-name sg --runtime python3.6 --code S3Bucket=testjenkins2021,S3Key=sg.zip --handler test_copy_program.lambda_handler --role arn:aws:iam::850752531886:role/lambda_fullaccess --region us-east-1"
-               sh '/usr/local/bin/aws events put-rule --name test_1 --event-pattern {\\\"source\\\":[\\\"aws.ec2\\\"],\\\"detail-type\\\":[\\\"AWS API Call via CloudTrail\\\"],\\\"detail\\\":{\\\"eventSource\\\":[\\\"ec2.amazonaws.com\\\"],\\\"eventName\\\":[\\\"AuthorizeSecurityGroupIngress\\\"]}}'
+               sh '/usr/local/bin/aws events put-rule --name test_1 --event-pattern "{\\\"source\\\":[\\\"aws.ec2\\\"],\\\"detail-type\\\":[\\\"AWS API Call via CloudTrail\\\"],\\\"detail\\\":{\\\"eventSource\\\":[\\\"ec2.amazonaws.com\\\"],\\\"eventName\\\":[\\\"AuthorizeSecurityGroupIngress\\\"]}}"'
                sh '/usr/local/bin/aws events put-targets --rule test_1 --targets Id=1,Arn=arn:aws:lambda:us-east-1:850752531886:function:sg'
 
            }
